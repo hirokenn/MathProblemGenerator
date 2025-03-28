@@ -7,6 +7,15 @@ from vectorstore_manager import VectorStoreManager
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 import fitz  # PyMuPDF
 import traceback
+import sys
+
+# OpenAI APIキーが設定されているか確認
+if not os.getenv("OPENAI_API_KEY"):
+    print("エラー: OPENAI_API_KEYが設定されていません。")
+    print("以下の方法で設定してください：")
+    print("1. .envファイルを作成: echo \"OPENAI_API_KEY=your_api_key_here\" > .env")
+    print("2. 環境変数として設定: export OPENAI_API_KEY=your_api_key_here")
+    sys.exit(1)
 
 # ベクトルストアマネージャーの初期化
 vectorstore_manager = VectorStoreManager("./vector_stores")
@@ -397,10 +406,10 @@ async def handle_upload():
     await ensure_welcome_message()
     
     files = await cl.AskFileMessage(
-        content="## 📤 PDFアップロード\n\nPDFファイルをアップロードしてください",
+        content="## 📤 PDFアップロード\n\nPDFファイルをアップロードしてください。\n\n※ 100MB以上のファイルは分割してアップロードしてください。\n\n※ ページ数が多いファイルは多くのAPI利用料金がかかります。",
         accept=["application/pdf"],
-        max_size_mb=20,
-        timeout=180,
+        max_size_mb=100,
+        timeout=300,
     ).send()
     
     if not files:
@@ -410,7 +419,7 @@ async def handle_upload():
     file = files[0]
     
     # 処理中のメッセージ
-    msg = cl.Message(content=f"🔄 `{file.name}`を処理中です...")
+    msg = cl.Message(content=f"🔄 `{file.name}`を処理中です... \n\n ※ この処理には時間がかかる場合があります。")
     await msg.send()
     
     # デバッグメッセージの表示

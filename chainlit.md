@@ -1,14 +1,37 @@
-# Welcome to Chainlit! 🚀🤖
+### 使用方法
 
-Hi there, Developer! 👋 We're excited to have you on board. Chainlit is a powerful tool designed to help you prototype, debug and share applications built on top of LLMs.
+1. アプリケーションを起動する
+```bash
+chainlit run app.py
+```
 
-## Useful Links 🔗
+2. ブラウザで `http://localhost:8000` にアクセスする
 
-- **Documentation:** Get started with our comprehensive [Chainlit Documentation](https://docs.chainlit.io) 📚
-- **Discord Community:** Join our friendly [Chainlit Discord](https://discord.gg/k73SQ3FyUh) to ask questions, share your projects, and connect with other developers! 💬
+3. 利用可能なコマンド:
+   - `/upload`: PDFをアップロードしてベクトルストアに保存
+   - `/generate [出題範囲] [難易度]`: 指定した難易度と範囲で問題を生成
+   - `/answer`: 最後に生成された問題の解答を表示
+   - `/explain [質問]`: PDFの内容に基づいて特定の質問に回答
+   - `/help`: ヘルプメッセージを表示
 
-We can't wait to see what you create with Chainlit! Happy coding! 💻😊
+## ベクトルストア管理
 
-## Welcome screen
+- `/store list`: 使用可能なベクトルストアの一覧を表示
+- `/store select [名前]`: 使用するベクトルストアを選択
+- `/store add [名前] [説明]`: 新しいベクトルストアを追加
+- `/store delete [名前]`: ベクトルストアを削除
 
-To modify the welcome screen, edit the `chainlit.md` file at the root of your project. If you do not want a welcome screen, just leave this file empty.
+## 難易度の基準
+
+- **初級**: 大学学部レベル
+- **中級**: 大学院初級レベル
+- **上級**: 大学院上級レベル
+
+## プロジェクト構造
+
+- `app.py`: メインアプリケーション
+- `pdf_processor.py`: PDFのアップロードと処理
+- `problem_generator.py`: 数学問題生成
+- `vectorstore_manager.py`: ベクトルストア管理
+- `vector_stores/`: ベクトルストアのデータ
+- `.chainlit/`: Chainlit設定

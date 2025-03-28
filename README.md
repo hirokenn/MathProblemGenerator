@@ -1,6 +1,6 @@
 # 問題生成ツール
 
-PDF資料をアップロードし、そのコンテンツに基づいて問題を生成するアプリケーションです。異なる難易度の問題を生成し、解答と解説を提供します。
+PDF資料をアップロードし、そのコンテンツに基づいて問題を生成するWebアプリケーションです。異なる難易度の問題を生成し、解答と解説を提供します。
 
 ## 特徴
 
@@ -43,6 +43,8 @@ pip install -r requirements.txt
 ```bash
 echo "OPENAI_API_KEY=your_api_key_here" > .env
 ```
+
+> **重要**: OPENAI_API_KEYを設定しないとアプリケーションは起動できません。必ず有効なAPIキーを設定してください。APIキーは環境変数としても設定できます: `export OPENAI_API_KEY=your_api_key_here`
 
 ### 使用方法
 
