@@ -1,0 +1,22 @@
+# 主要なライブラリ
+chainlit==2.4.201
+langchain==0.1.20
+langchain-openai==0.0.8
+langchain-chroma==0.1.2
+langchain-core==0.1.53
+langchain-community==0.0.38
+
+# OpenAIとのインテグレーション
+openai==1.52.1
+
+# ベクターストア関連
+chromadb==0.4.24
+faiss-cpu==1.8.0.post1
+
+# PDFの処理
+PyMuPDF==1.23.26
+pdf2image==1.17.0
+
+# その他の依存関係
+pydantic==2.10.6
+python-dotenv==1.0.1 
