@@ -81,7 +81,3 @@ chainlit run app.py
 - `vectorstore_manager.py`: ベクトルストア管理
 - `vector_stores/`: ベクトルストアのデータ
 - `.chainlit/`: Chainlit設定
-
-## ライセンス
-
-[MITライセンス](LICENSE) 
