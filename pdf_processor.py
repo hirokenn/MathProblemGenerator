@@ -1,11 +1,9 @@
 from langchain_chroma import Chroma
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.messages import HumanMessage
-import base64
-import fitz
+from langchain_community.document_loaders import MathpixPDFLoader
 import os
 import asyncio
 import traceback
+import uuid
 
 class PDFProcessor:
     def __init__(self, dir_db: str, embedding_model, llm):
@@ -36,33 +34,16 @@ class PDFProcessor:
             print(f"コレクションサイズの取得中にエラーが発生しました: {str(e)}")
             return 0
 
-    def process_img(self, image_data):
-        """
-        画像データを処理する関数
-        最新のLangChain APIに合わせて修正
-        """
-        # メッセージのコンテンツを作成
-        message_content = [
-            {"type": "text", "text": "このPDFの内容を詳細に説明してください。なお数式はlatex形式で$や$$を用いて記載するようにしてください。"},
-            {
-                "type": "image_url",
-                "image_url": {"url": f"data:image/jpeg;base64,{image_data}"},
-            },
-        ]
-        
-        # 最新のLangChain APIでは、BaseMessagesのリストが必要
-        messages = [HumanMessage(content=message_content)]
-        
-        # リストとしてメッセージを渡す
-        response = self.llm.invoke(messages)
-        return response
-
     def process_pdf(self, pdf_path: str):
         if not os.path.exists(pdf_path):
             raise FileNotFoundError(f"PDFファイルが見つかりません: {pdf_path}")
         
+        loader = MathpixPDFLoader(pdf_path)
+        
         # PDFを開く
-        doc = fitz.open(pdf_path)
+        docs = loader.load()
+
+        self.db.add_documents(documents=docs, ids=uuids)
         
         for page_num in range(len(doc)):
             # ページを取得
